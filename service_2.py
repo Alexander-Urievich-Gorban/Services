@@ -9,5 +9,3 @@ def get_resolution(number):
     res = random.choices(['blue', 'green', 'red'], weights=[4, 2, 1])
     print(f"item number {number} most likely {res[0]}")
 
-
-get_resolution(3)
