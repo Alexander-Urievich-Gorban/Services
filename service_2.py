@@ -5,7 +5,7 @@
 import random
 
 
-def get_resolution(number):
+def get_result(number):
     res = random.choices(['blue', 'green', 'red'], weights=[4, 2, 1])
     print(f"item number {number} most likely {res[0]}")
 
