@@ -1,7 +1,7 @@
 """Введите коэффициенты для квадратного уравнения (ax^2 + bx + c = 0):"""
 
 
-def get_resolution(a, b, c):
+def get_result(a, b, c):
     discr = b ** 2 - 4 * a * c
     print("Дискриминант D = %.2f" % discr)
     if discr > 0:
