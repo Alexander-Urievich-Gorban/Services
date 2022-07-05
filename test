@@ -1,1 +1,148 @@
 
+Python
+
+1.	Дана функция f. Что выведет print #1 и print #2?
+
+def f(x):
+    if getattr(f, "x", None) is None:
+        f.x = x
+f(6)
+f(7)
+print(f.x)  # 1
+setattr(f, "x", 67)
+print(f.x)  # 2
+Ответ: print #1 = 6, 
+print #2 = 67
+
+
+2.	Задан словарь d, Необходимо написать код, который выведет список значений словаря, в убывающем порядке.
+
+d = {
+'a': 1,
+'b': 2,
+'c': 3,
+'d': 4,
+'e': 5,
+'f': 6
+}
+Ответ: 
+d = {k: d[k] for k in sorted(d, key=d.get, reverse=True)}
+print(d)
+
+
+3.	Написать функцию, которая будет выводить количество шариков (синие + красные) на итерации n.
+ 
+
+
+
+def func(n):
+    blue = 1
+    red = 0
+    iterate = 0
+    for i in range(1, n + 1):
+        iterate += 1
+        if iterate == 2:
+            iterate = 0
+            blue += 5
+        red += 5
+    return f"blue: {blue}, red: {red}"
+
+
+
+4.	Чем плох данный фрагмент кода? Как его можно улучшить?
+
+my_dict = {
+    '1': 1,
+    '2': 2,
+    '3': 3
+}
+
+def MYFUNC(a, b, c):
+    """ return max """
+    try:
+        if a > b and a > c:
+            return a
+        if b > a and b > c:
+            return b
+        if c > a and c > b:
+            return c
+    except:
+        pass
+
+a = my_dict['1']
+b = my_dict['2']
+c = my_dict['3']
+
+print(MYFUNC(a, b, c))
+
+Ответ: Он плох тем, что создаёт уже существующий в питоне функционал, этот код можно сократить в несколько раз
+my_dict = {
+    'a': 1,
+    'b': 2,
+    'c': 3
+}
+print(max(my_dict.values()))
+
+5.	Из-за чего возникла данная ошибка?
+
+Revision: 41652
+(python: 2.7.12 (v2.7.12:d33e0cf91556, Jun 27 2016, 15:19:22) [MSC v.1500 32 bit (Intel)])
+(Qt: 4.8.7)
+01.09.2020 9:22:05: <type 'exceptions.NameError'>
+(global name 'isTypeOMS' is not defined)
+  File "src\Registry\RegistryWindow.py", line 2551, in requestNewEvent
+  File "src\Events\CreateEvent.py", line 228, in requestNewEvent
+  File "src\library\Utils.py", line 2087, in wrapper
+  File "src\Events\CreateEvent.py", line 725, in createEvent
+  File "src\Forms\F025\F025Dialog.py", line 540, in prepare
+Ответ: из-за того, что переменная isTypeOMS неизвестна, то есть не была определена до применения
+
+
+Вопросы по SQL
+1.	Написать SQL-запрос, который выведет количество действий с именем «МРТ» для всех пациентов за 2020 год.
+Ответ:
+SELECT first_name, COUNT(Action) as count
+FROM Event
+JOIN Action
+	ON Action.event_id=Event.id
+JOIN ActionType
+	ON Action.action_type_id =ActionType.id
+JOIN Client
+	ON Event.client_id=client.id
+WHERE ActionType.name ='MPT' AND YEAR(Action.beg_date)<=2020 AND YEAR(Action.end_date)>= 2020
+GROUP BY Client.first_name;
+
+2.	Добавить колонку «Пол» в таблицу с пациентами.
+ALTER TABLE Client
+ADD gender VARCHAR(50) NOT NULL DEFAULT 'man';
+3.	Доработать SQL-запрос из задания 1 так, чтобы количество услуг выводилось для пациентов мужского пола и женского пола отдельно.
+SELECT first_name, COUNT(Action) as count
+FROM Event
+JOIN Action
+	ON Action.event_id=Event.id
+JOIN ActionType
+	ON Action.action_type_id =ActionType.id
+JOIN Client
+	ON Event.client_id =client.id
+WHERE ActionType.name ='MPT' AND YEAR(Action.beg_date)<=2020 AND YEAR(Action.end_date)>= 2020
+GROUP BY Client.first_name;
+ORDER BY Client.gender;
+4.	Создать таблицу «Организации», в которой будет хранится основная информация существующей организации (Название, ИНН, адрес, контактный телефон, флаг-признак страховой организации).
+CREATE TABLE Organization (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(250) NOT NULL,
+	inn INT,
+	address VARCHAR(250),
+	phone VARCHAR(20),
+	flag_type VARCHAR(250)
+);
+
+5.	Добавить внешний ключ в таблицу Contract. (Contract.payer_id → Organisation.id)
+
+ALTER TABLE Contract
+ADD FOREIGN KEY (player_id) REFERENCES Organization (Id);
+
+
+
+
+
